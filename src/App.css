@@ -1,38 +1,184 @@
-.App {
-  text-align: center;
-}
+/* App.css */
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+/* Import the Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: column;
 }
 
-.App-link {
-  color: #61dafb;
+h1 {
+  color: #333;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
 }
 
-@keyframes App-logo-spin {
+/* Search bar styles */
+.search-bar {
+  width: 300px;
+  padding: 10px;
+  margin: 20px 0;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.search-bar:focus {
+  border-color: #007bff;
+}
+
+/* Grid container for movie cards */
+.movies-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Flexible grid */
+  gap: 20px; /* Spacing between cards */
+  max-width: 1300px; /* Maximum width */
+  margin: 0 auto; /* Center the grid */
+}
+
+
+.movie-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.movie-image {
+  border-radius: 10px;
+  width: 100%;
+}
+
+
+
+/* Spacing for headings */
+h3 {
+  margin: 10px 0; /* Space above and below headings */
+}
+
+.ratings-list,
+.screenings-container {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+.ratings-list {
+  display: flex; /* Use flexbox for the ratings list */
+  flex-wrap: wrap; /* Allow wrapping of list items */
+  padding: 0; /* Remove default padding */
+  list-style: none; /* Remove bullet points */
+}
+
+.rating-item {
+  display: flex; /* Display each rating item as a flex container */
+  align-items: center; /* Center the items vertically */
+  margin: 5px; /* Space between each rating item */
+  flex-shrink: 0; /* Prevent items from shrinking */
+}
+
+.logo {
+  width: 40px; /* Logo width */
+  height: 40px; /* Logo height */
+  margin-right: 3px; /* Space between logo and text */
+}
+
+.rating-text {
+  white-space: nowrap; /* Prevent the rating text from wrapping */
+}
+
+.trailer-link {
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.trailer-link:hover {
+  text-decoration: underline;
+}
+
+/* Screenings section styles */
+.screenings-container {
+  display: flex;
+  flex-direction: column; /* Aligns screening cards vertically */
+}
+
+.screening-card {
+  background: #f0f4f8; /* Light background for contrast */
+  border-radius: 2px;
+  margin: 5px 0; /* Small margin to separate cards */
+  padding: 3px; /* Minimal padding */
+  display: flex;
+  justify-content: space-between; /* Space between times and title */
+  align-items: center; /* Center align items */
+  font-size: 0.9rem; /* Slightly smaller font for compactness */
+  direction: rtl; /* Aligns content from right to left */
+  text-align: right; /* Aligns text to the right */
+}
+
+/* Keyframes for fade-in effect */
+@keyframes fadeIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
   }
+}
+
+/* New styles for screening times container */
+.screening-times-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping for time slots */
+  gap: 5px; /* Space between time slots */
+  justify-content: flex-start; /* Align to the left */
+}
+
+/* Style for each time slot ellipse */
+.ellipse {
+  background-color: #e0e7ea; /* Slightly darker than the background */
+  border-radius: 10px; /* Rounded corners for an ellipse effect */
+  padding: 2px; /* Padding for aesthetics */
+  font-size: 0.9rem; /* Font size for the time */
+  color: #333; /* Text color */
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Show ellipses for overflow text */
+}
+
+.movie-card {
+  position: relative; /* Make the card a positioning context */
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  padding: 15px;
+  width: 230px;
+  transition: transform 0.2s;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.toggle-button {
+  position: absolute; /* Positioning relative to the card */
+  bottom: 15px; /* Space from the bottom */
+  right: 15px; /* Space from the right */
+  background-color: #007bff; /* Button color */
+  color: white; /* Text color */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 8px 15px; /* Padding for aesthetics */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.toggle-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
 }
