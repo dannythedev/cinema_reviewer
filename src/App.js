@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css'; // Import the CSS file
-
+import Footer from './Footer';
 // Import all logos statically
 import YesPlanetLogo from './logos/fRW7ZRr.png';
 import HOTCinemaLogo from './logos/eMeib2P.png';
@@ -31,23 +31,34 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState(''); // Add state for search query
 
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const response = await fetch('/movies.json'); // Fetch the movies.json file
-        const data = await response.json(); // Parse the JSON data
-        const moviesWithVisibility = data.Movies.map(movie => ({
-          ...movie,
-          showScreenings: false, // Initialize showScreenings property
-        }));
-        setMovies(moviesWithVisibility); // Update the state with movie data
-      } catch (error) {
-        console.error('Error fetching movies:', error);
-      }
-    };
+useEffect(() => {
+  const fetchMovies = async () => {
+    try {
+      // Fetch from the URL instead of a local file
+      const response = await fetch('https://cinema-reviewer.onrender.com/movies');
 
-    fetchMovies(); // Call the function to fetch movies
-  }, []); // Empty dependency array means this effect runs once on mount
+      // Check if the response is ok (status in the range 200-299)
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json(); // Parse the JSON data
+
+      // Assuming the response structure contains a "Movies" array
+      const moviesWithVisibility = data.Movies.map(movie => ({
+        ...movie,
+        showScreenings: false, // Initialize showScreenings property
+      }));
+
+      setMovies(moviesWithVisibility); // Update the state with movie data
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+    }
+  };
+
+  fetchMovies(); // Call the function to fetch movies
+}, []); // Empty dependency array to run once on component mount
+ // Empty dependency array means this effect runs once on mount
 
   // Function to handle the search input change in real-time
   const handleSearchChange = (e) => {
@@ -174,6 +185,8 @@ const toggleScreenings = (title) => {
         ))}
 
       </div>
+      {/* Include the Footer */}
+      <Footer />
     </div>
   );
 }
