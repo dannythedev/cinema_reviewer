@@ -70,15 +70,18 @@ function App() {
     return combinedData.includes(searchQuery);
   });
 
-  const toggleScreenings = (index) => {
-    const updatedMovies = [...movies];
-    updatedMovies[index].showScreenings = !updatedMovies[index].showScreenings; // Toggle showScreenings property
-    setMovies(updatedMovies);
-  };
+const toggleScreenings = (title) => {
+  const updatedMovies = movies.map(movie =>
+    movie.title === title
+      ? { ...movie, showScreenings: !movie.showScreenings }
+      : movie
+  );
+  setMovies(updatedMovies);
+};
 
   return (
     <div>
-      <h1>Movie List</h1>
+      <h1>Cinema Reviewer</h1>
 
       {/* Search Bar */}
       <input
@@ -94,7 +97,7 @@ function App() {
             <div className="movie-card" key={index}>
               <img className="movie-image" src={movie.image} alt={movie.title}/>
               <h2>{movie.title}</h2>
-              <p>Genre: {movie.genre.length > 0 ? movie.genre : 'N/A'}</p>
+              <p><b>Genre:</b> {movie.genre.length > 0 ? movie.genre : 'N/A'}</p>
               <p><b>Total Rating:</b> {movie.total_rating}</p>
 
               <h3>Ratings:</h3>
@@ -137,7 +140,7 @@ function App() {
                 Trailer</a>
               {/* Toggle Button for Screenings */}
               <a target="_blank"><br></br><br></br><br></br> </a>
-              <button className="toggle-button" onClick={() => toggleScreenings(index)}>
+              <button className="toggle-button" onClick={() => toggleScreenings(movie.title)}>
                 {movie.showScreenings ? 'Hide Screenings' : 'Show Screenings'}
               </button>
 
@@ -153,13 +156,13 @@ function App() {
                           {Object.entries(movie.screenings).map(([cinema, times]) => (
                               <div className="screening-card" key={cinema}>
                                 <span className="screening-title">{cinema}</span>
-                                <div className="screening-times-container">
+                                <span className="screening-times-container">
                                   {times.map((time, index) => (
                                       <div className="ellipse" key={index}>
                                         {time}
                                       </div>
                                   ))}
-                                </div>
+                                </span>
                               </div>
                           ))}
                         </div>
