@@ -1,21 +1,23 @@
 {
   "files": {
-    "main.css": "/cinema_reviewer/static/css/main.263c4a92.css",
-    "main.js": "/cinema_reviewer/static/js/main.60b3eb7c.js",
+    "main.css": "/cinema_reviewer/static/css/main.cc035c4a.css",
+    "main.js": "/cinema_reviewer/static/js/main.4bb9274b.js",
     "static/js/453.68bc0957.chunk.js": "/cinema_reviewer/static/js/453.68bc0957.chunk.js",
     "static/media/dHSZEvt.png": "/cinema_reviewer/static/media/dHSZEvt.637396a89699dc615125.png",
-    "static/media/Agep5Se.png": "/cinema_reviewer/static/media/Agep5Se.0bd0f6eb0c3e8ca22242.png",
-    "static/media/AGJ7mEy.png": "/cinema_reviewer/static/media/AGJ7mEy.b1e021e2da0a69bc0dc0.png",
+    "static/media/Agep5Se_audience.png": "/cinema_reviewer/static/media/Agep5Se_audience.6a216d1288f4edddf1be.png",
+    "static/media/AGJ7mEy_audience.png": "/cinema_reviewer/static/media/AGJ7mEy_audience.6bb96babc97b6450d224.png",
+    "static/media/AGJ7mEy_critic.png": "/cinema_reviewer/static/media/AGJ7mEy_critic.d40f71097fa13fc05235.png",
+    "static/media/Agep5Se_critic.png": "/cinema_reviewer/static/media/Agep5Se_critic.b7b09121fdf2e27e2883.png",
     "static/media/fRW7ZRr.png": "/cinema_reviewer/static/media/fRW7ZRr.aa5429e1073c8fd7b641.png",
     "static/media/7Nt6BUb.png": "/cinema_reviewer/static/media/7Nt6BUb.b494d9c12cc10edc8940.png",
     "static/media/M63ZHXb.png": "/cinema_reviewer/static/media/M63ZHXb.b4908bc375fd541b9187.png",
     "index.html": "/cinema_reviewer/index.html",
-    "main.263c4a92.css.map": "/cinema_reviewer/static/css/main.263c4a92.css.map",
-    "main.60b3eb7c.js.map": "/cinema_reviewer/static/js/main.60b3eb7c.js.map",
+    "main.cc035c4a.css.map": "/cinema_reviewer/static/css/main.cc035c4a.css.map",
+    "main.4bb9274b.js.map": "/cinema_reviewer/static/js/main.4bb9274b.js.map",
     "453.68bc0957.chunk.js.map": "/cinema_reviewer/static/js/453.68bc0957.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.263c4a92.css",
-    "static/js/main.60b3eb7c.js"
+    "static/css/main.cc035c4a.css",
+    "static/js/main.4bb9274b.js"
   ]
 }
