@@ -1,0 +1,13 @@
+/* Footer.css */
+
+.footer {
+  background-color: #1e1e1e; /* Match the dark theme */
+  color: #ffffff; /* Light text color */
+  text-align: center; /* Center the text */
+  padding: 10px 0; /* Padding for aesthetics */
+  position: relative; /* Positioning context for the footer */
+  bottom: 0; /* Stick to the bottom */
+  width: 100%; /* Full width */
+  margin-top: 20px; /* Space above the footer */
+  font-size: 0.9rem; /* Slightly smaller font */
+}
