@@ -31,56 +31,60 @@ export const logos = {
   "Tomatometer Critic Score": TomatometerCriticLogo,
 };
 
+// Mapping of logo keys to their respective links
+const logoToKeyMapping = {
+  "IMDB Audience Score": "IMDB",
+  "TheMovieDB Audience Score": "TheMovieDB",
+  "Metacritic Audience Score": "Metacritic",
+  "Metacritic Critic Score": "Metacritic",
+  "Letterboxd Audience Score": "Letterboxd",
+  "Tomatometer Audience Score": "Rotten Tomatoes",
+  "Tomatometer Critic Score": "Rotten Tomatoes",
+};
+
 function App() {
   const [movies, setMovies] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(''); // Add state for search query
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        // Fetch from the URL instead of a local file
         const response = await fetch('https://cinema-reviewer.onrender.com/movies');
 
-        // Check if the response is ok (status in the range 200-299)
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const data = await response.json(); // Parse the JSON data
+        const data = await response.json();
 
-        // Assuming the response structure contains a "Movies" array
         const moviesWithVisibility = data.Movies.map(movie => ({
           ...movie,
-          showScreenings: false, // Initialize showScreenings property
+          showScreenings: false,
         }));
 
-        setMovies(moviesWithVisibility); // Update the state with movie data
+        setMovies(moviesWithVisibility);
       } catch (error) {
         console.error('Error fetching movies:', error);
       }
     };
 
-    fetchMovies(); // Call the function to fetch movies
-  }, []); // Empty dependency array to run once on component mount
+    fetchMovies();
+  }, []);
 
-  // Function to handle the search input change in real-time
   const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value.toLowerCase()); // Convert query to lowercase for case-insensitive search
+    setSearchQuery(e.target.value.toLowerCase());
   };
 
   const filteredMovies = movies.filter((movie) => {
     const { title, genre, rating, screenings } = movie;
-
-    // Ensure genre is a string for search
     const combinedData = [
       title,
-      ...Array.isArray(genre) ? genre : [genre], // Ensure it's treated as an array
+      ...Array.isArray(genre) ? genre : [genre],
       ...Object.keys(rating),
-      ...Object.values(rating).map(r => r.toString()), // Convert ratings to strings
+      ...Object.values(rating).map(r => r.toString()),
       ...Object.keys(screenings),
-      ...Object.values(screenings).flat(), // Flatten screening times arrays
-    ].join(' ').toLowerCase(); // Join all data and convert to lowercase
-
+      ...Object.values(screenings).flat(),
+    ].join(' ').toLowerCase();
     return combinedData.includes(searchQuery);
   });
 
@@ -103,94 +107,119 @@ function App() {
         className="search-bar"
         placeholder="Search by movies, genre, cinemas, reviewers..."
         value={searchQuery}
-        onChange={handleSearchChange} // Update search query on input change
+        onChange={handleSearchChange}
       />
 
       <Carousel movies={movies} />
 
       <div className="movies-container">
         {filteredMovies.map((movie, index) => (
-          <div className="movie-card" key={index}>
-            <img className="movie-image" src={movie.image} alt={movie.title} />
-            <h2>{movie.title}</h2>
-            <h4>{movie.duration}</h4> {/* Added duration here */}
-            <p><b>Genre:</b> {movie.genre.length > 0 ? movie.genre : 'N/A'}</p>
-            <p><b>Total Rating:</b> {movie.total_rating}</p>
+            <div className="movie-card" key={index}>
+              <img className="movie-image"
+                   src={movie.image || 'https://www.prokerala.com/movies/assets/img/no-poster-available.webp'}
+                   alt={movie.title}/>
+              <h2>{movie.title}</h2>
+              <h4>{movie.duration || 'N/A'}</h4>
+              <p><b>Genre:</b> {movie.genre.length > 0 ? movie.genre : 'N/A'}</p>
+              <p><b>Total Rating:</b> {movie.total_rating || 'N/A'}</p>
 
-
-            <h3>Ratings:</h3>
-            <ul className="ratings-list">
-              {Object.entries(movie.rating).length === 0
-                ? <li>No ratings available</li>
-                : Object.entries(movie.rating).map(([reviewer, rating]) => (
-                  <li className="rating-item" key={reviewer}>
-                    {logos[reviewer] && (
-                      <img
-                        className="logo"
-                        src={logos[reviewer]}
-                        alt={`${reviewer} logo`}
-                      />
-                    )}
-                    <span className="rating-text">{rating} %</span> {/* Keep the rating text next to the logo */}
-                  </li>
-                ))}
-            </ul>
-
-            <h3>Cinemas:</h3>
-            <ul className="ratings-list">
-              {Object.keys(movie.origin).length === 0
-                ? <li>No origin cinemas available</li>
-                : Object.keys(movie.origin).map(cinema => (
-                  <li className="rating-item" key={cinema}>
-                    {logos[cinema] && (
-                      <img
-                        className="logo"
-                        src={logos[cinema]}
-                        alt={`${cinema} logo`}
-                      />
-                    )}
-                  </li>
-                ))}
-            </ul>
-
-            <a className="trailer-link" href={movie.trailer} target="_blank" rel="noopener noreferrer">Watch Trailer</a>
-            {/* Toggle Button for Screenings only if screenings are available */}
-            {Object.entries(movie.screenings).length > 0 && (
-              <button className="toggle-button" onClick={() => toggleScreenings(movie.title)}>
-                {movie.showScreenings ? 'Hide Screenings' : 'Show Screenings'}
-              </button>
-            )}
-
-            {/* Updated Screenings Section */}
-            {movie.showScreenings && (
-              <div>
-                <h3>Screenings:</h3>
-                {Object.entries(movie.screenings).length === 0 ? (
-                  <p>No screenings available</p>
+              <h3>Ratings:</h3>
+              <ul className="ratings-list">
+                {Object.entries(movie.rating).length === 0 ? (
+                    <li>No ratings available</li>
                 ) : (
-                  <div className="screenings-container">
-                    {Object.entries(movie.screenings).map(([cinema, times]) => (
-                      <div className="screening-card" key={cinema}>
-                        <span className="screening-title">{cinema}</span>
-                        <span className="screening-times-container">
+                    Object.entries(movie.rating).map(([reviewer, rating]) => {
+                      const logoKey = logoToKeyMapping[reviewer]; // Get the mapped key for the logo
+                      const link = movie.links[logoKey]; // Get the link based on the mapped key
+                      const logoSrc = logos[reviewer]; // Get the logo source
+
+                      return (
+                          <li className="rating-item" key={reviewer}>
+                            {logoSrc && (
+                                link ? ( // If link exists, make it clickable
+                                    <a
+                                        href={link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="logo-link" // This class can be styled for hover effects
+                                    >
+                                      <img
+                                          className="logo"
+                                          src={logoSrc}
+                                          alt={`${reviewer} logo`}
+                                      />
+                                    </a>
+                                ) : ( // If no link, just show the logo without a link
+                                    <img
+                                        className="logo static-logo" // Add a class for styling if needed
+                                        src={logoSrc}
+                                        alt={`${reviewer} logo`}
+                                    />
+                                )
+                            )}
+                            <span className="rating-text">{rating} %</span>
+                          </li>
+                      );
+                    })
+                )}
+              </ul>
+
+
+              <h3>Cinemas:</h3>
+              <ul className="ratings-list">
+                {Object.keys(movie.origin).length === 0 ? (
+                    <li>No origin cinemas available</li>
+                ) : (
+                    Object.keys(movie.origin).map(cinema => (
+                        <li className="rating-item" key={cinema}>
+                          {logos[cinema] && (
+                              <img
+                                  className="logo"
+                                  src={logos[cinema]}
+                                  alt={`${cinema} logo`}
+                              />
+                          )}
+                        </li>
+                    ))
+                )}
+              </ul>
+
+              <a className="trailer-link" href={movie.trailer} target="_blank" rel="noopener noreferrer">Watch
+                Trailer</a>
+              {Object.entries(movie.screenings).length > 0 && (
+                  <button className="toggle-button" onClick={() => toggleScreenings(movie.title)}>
+                    {movie.showScreenings ? 'Hide Screenings' : 'Show Screenings'}
+                  </button>
+              )}
+
+              {movie.showScreenings && (
+                  <div>
+                    <h3>Screenings:</h3>
+                    {Object.entries(movie.screenings).length === 0 ? (
+                        <p>No screenings available</p>
+                    ) : (
+                        <div className="screenings-container">
+                          {Object.entries(movie.screenings).map(([cinema, times]) => (
+                              <div className="screening-card" key={cinema}>
+                                <span className="screening-title">{cinema}</span>
+                                <span className="screening-times-container">
                           {times.map((time, index) => (
-                            <div className="ellipse" key={index}>
-                              {time}
-                            </div>
+                              <div className="ellipse" key={index}>
+                                {time}
+                              </div>
                           ))}
                         </span>
-                      </div>
-                    ))}
+                              </div>
+                          ))}
+                        </div>
+                    )}
+                    <br/><br/>
                   </div>
-                )}
-                <br /><br />
-              </div>
-            )}
-          </div>
+              )}
+            </div>
         ))}
       </div>
-      {/* Include the Footer */}
-      <Footer />
+      <Footer/>
     </div>
   );
 }

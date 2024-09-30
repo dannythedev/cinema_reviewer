@@ -1,7 +1,6 @@
 /* Carousel.css */
 .carousel-container {
   width: 100%;
-  max-width: 100vw;
   overflow: hidden;
   margin: 20px 0;
   position: relative;
@@ -9,34 +8,36 @@
 
 .carousel {
   display: flex;
-  transition: transform 1s ease; /* Changed from 0.5s to 1s for slower transition */
+  transition: transform 1s ease; /* Smooth transition for the sliding effect */
 }
 
 
 .carousel-slide {
-  min-width: 100%;
-  transition: transform 1s ease-in-out;
+  /* Ensure the slides take up exactly 100% of the space and display one by one */
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
 }
 
 .carousel-image {
+  /* Ensure the images take up 100% of the width and there is no padding */
   width: 100%;
   height: 400px;
-  object-fit: cover;        /* Ensure the image covers the entire area */
-  object-position: 50% 6%; /* Shift the focus slightly downwards to show more of the bottom */
-  border-radius: 15px;
-  filter: brightness(0.8);  /* Make the image darker */
+  object-fit: cover; /* Cover the area without distortion */
+  object-position: 50% 50%;
+  border-radius: 0; /* Remove any border-radius */
 }
-
-
 
 .carousel-overlay {
   position: absolute;
   bottom: 20px;
   left: 20px;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.7); /* Darken the overlay */
   padding: 15px;
   border-radius: 10px;
+  color: #ffffff;
 }
 
 .carousel-title {
@@ -45,7 +46,12 @@
   margin: 0;
 }
 
-.carousel-rating,
+.carousel-rating {
+  color: #ff416c;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
 .carousel-duration,
 .carousel-genre {
   color: #ffffff;
@@ -70,7 +76,7 @@
   display: flex;
   justify-content: center;
   position: absolute;
-  bottom: 20px; /* Adjust position */
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10; /* Ensure dots are on top */

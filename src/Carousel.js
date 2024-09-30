@@ -25,10 +25,13 @@ function Carousel({ movies }) {
 
   return (
     <div className="carousel-container">
-      <div className="carousel" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+      <div
+        className="carousel"
+        style={{ transform: `translateX(-${(currentIndex - 1) * 20}%)` }} // Adjust the translation
+      >
         {topMovies.map((movie, index) => (
           <div className="carousel-slide" key={index}>
-            <img src={movie.image} alt={movie.title} className="carousel-image" />
+            <img src={movie.image} alt={movie.title} className={`carousel-image ${index === currentIndex ? 'active' : ''}`} />
             <div className="carousel-overlay">
               <h2 className="carousel-title">{movie.title}</h2>
               <p className="carousel-rating">Rating: {movie.total_rating}%</p>

@@ -169,6 +169,17 @@ h3 {
   margin-right: 7px;
 }
 
+/* App.css */
+.logo-link {
+  display: inline-block; /* Ensures the anchor tag wraps around the image properly */
+  transition: transform 0.3s ease; /* Smooth transition for scaling */
+}
+
+.logo-link:hover {
+  transform: scale(1.1); /* Scale the logo slightly on hover */
+}
+
+
 .rating-text {
   color: #ffffff;
   font-weight: 600;
