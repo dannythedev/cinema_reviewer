@@ -4,6 +4,7 @@ import Footer from './Footer';
 import Carousel from './Carousel'; // Import the Carousel component
 
 // Import all logos statically
+import SiteLogo from './logos/logo.png';
 import YesPlanetLogo from './logos/fRW7ZRr.png';
 import HOTCinemaLogo from './logos/eMeib2P.png';
 import CinemaCityLogo from './logos/dHSZEvt.png';
@@ -98,129 +99,134 @@ function App() {
   };
 
   return (
-    <div>
-      <h1>Cinema Reviewer</h1>
+      <div>
+        <h1 className="title-with-logo">
+          <img src={SiteLogo} alt="Site Logo" className="site-logo"/>
+        </h1>
 
-      {/* Search Bar */}
-      <input
-        type="text"
-        className="search-bar"
-        placeholder="Search by movies, genre, cinemas, reviewers..."
-        value={searchQuery}
-        onChange={handleSearchChange}
-      />
 
-      <Carousel movies={movies} />
+        {/* Search Bar */}
+        <div className="search-container">
+          <input
+              type="text"
+              className="search-bar"
+              placeholder="Search by movies, genre, cinemas, reviewers..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+          />
+        </div>
 
-      <div className="movies-container">
-        {filteredMovies.map((movie, index) => (
-            <div className="movie-card" key={index}>
-              <img className="movie-image"
-                   src={movie.image || 'https://www.prokerala.com/movies/assets/img/no-poster-available.webp'}
-                   alt={movie.title}/>
-              <h2>{movie.title}</h2>
-              <h4>{movie.duration || 'N/A'}</h4>
-              <p><b>Genre:</b> {movie.genre.length > 0 ? movie.genre : 'N/A'}</p>
-              <p><b>Total Rating:</b> {movie.total_rating || 'N/A'}</p>
+        {!searchQuery && <Carousel movies={movies} />}
 
-              <h3>Ratings:</h3>
-              <ul className="ratings-list">
-                {Object.entries(movie.rating).length === 0 ? (
-                    <li>No ratings available</li>
-                ) : (
-                    Object.entries(movie.rating).map(([reviewer, rating]) => {
-                      const logoKey = logoToKeyMapping[reviewer]; // Get the mapped key for the logo
-                      const link = movie.links[logoKey]; // Get the link based on the mapped key
-                      const logoSrc = logos[reviewer]; // Get the logo source
+        <div className="movies-container">
+          {filteredMovies.map((movie, index) => (
+              <div className="movie-card" key={index}>
+                <img className="movie-image"
+                     src={movie.image || 'https://www.prokerala.com/movies/assets/img/no-poster-available.webp'}
+                     alt={movie.title}/>
+                <h2>{movie.title}</h2>
+                <h4>{movie.duration || 'N/A'}</h4>
+                <p><b>Genre:</b> {movie.genre.length > 0 ? movie.genre : 'N/A'}</p>
+                <p><b>Total Rating:</b> {movie.total_rating || 'N/A'}</p>
 
-                      return (
-                          <li className="rating-item" key={reviewer}>
-                            {logoSrc && (
-                                link ? ( // If link exists, make it clickable
-                                    <a
-                                        href={link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="logo-link" // This class can be styled for hover effects
-                                    >
+                <h3>Ratings:</h3>
+                <ul className="ratings-list">
+                  {Object.entries(movie.rating).length === 0 ? (
+                      <li>No ratings available</li>
+                  ) : (
+                      Object.entries(movie.rating).map(([reviewer, rating]) => {
+                        const logoKey = logoToKeyMapping[reviewer]; // Get the mapped key for the logo
+                        const link = movie.links[logoKey]; // Get the link based on the mapped key
+                        const logoSrc = logos[reviewer]; // Get the logo source
+
+                        return (
+                            <li className="rating-item" key={reviewer}>
+                              {logoSrc && (
+                                  link ? ( // If link exists, make it clickable
+                                      <a
+                                          href={link}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="logo-link" // This class can be styled for hover effects
+                                      >
+                                        <img
+                                            className="logo"
+                                            src={logoSrc}
+                                            alt={`${reviewer} logo`}
+                                        />
+                                      </a>
+                                  ) : ( // If no link, just show the logo without a link
                                       <img
-                                          className="logo"
+                                          className="logo static-logo" // Add a class for styling if needed
                                           src={logoSrc}
                                           alt={`${reviewer} logo`}
                                       />
-                                    </a>
-                                ) : ( // If no link, just show the logo without a link
-                                    <img
-                                        className="logo static-logo" // Add a class for styling if needed
-                                        src={logoSrc}
-                                        alt={`${reviewer} logo`}
-                                    />
-                                )
+                                  )
+                              )}
+                              <span className="rating-text">{rating} %</span>
+                            </li>
+                        );
+                      })
+                  )}
+                </ul>
+
+
+                <h3>Cinemas:</h3>
+                <ul className="ratings-list">
+                  {Object.keys(movie.origin).length === 0 ? (
+                      <li>No origin cinemas available</li>
+                  ) : (
+                      Object.keys(movie.origin).map(cinema => (
+                          <li className="rating-item" key={cinema}>
+                            {logos[cinema] && (
+                                <img
+                                    className="logo"
+                                    src={logos[cinema]}
+                                    alt={`${cinema} logo`}
+                                />
                             )}
-                            <span className="rating-text">{rating} %</span>
                           </li>
-                      );
-                    })
+                      ))
+                  )}
+                </ul>
+
+                <a className="trailer-link" href={movie.trailer} target="_blank" rel="noopener noreferrer">Watch
+                  Trailer</a>
+                {Object.entries(movie.screenings).length > 0 && (
+                    <button className="toggle-button" onClick={() => toggleScreenings(movie.title)}>
+                      {movie.showScreenings ? 'Hide Screenings' : 'Show Screenings'}
+                    </button>
                 )}
-              </ul>
 
-
-              <h3>Cinemas:</h3>
-              <ul className="ratings-list">
-                {Object.keys(movie.origin).length === 0 ? (
-                    <li>No origin cinemas available</li>
-                ) : (
-                    Object.keys(movie.origin).map(cinema => (
-                        <li className="rating-item" key={cinema}>
-                          {logos[cinema] && (
-                              <img
-                                  className="logo"
-                                  src={logos[cinema]}
-                                  alt={`${cinema} logo`}
-                              />
-                          )}
-                        </li>
-                    ))
-                )}
-              </ul>
-
-              <a className="trailer-link" href={movie.trailer} target="_blank" rel="noopener noreferrer">Watch
-                Trailer</a>
-              {Object.entries(movie.screenings).length > 0 && (
-                  <button className="toggle-button" onClick={() => toggleScreenings(movie.title)}>
-                    {movie.showScreenings ? 'Hide Screenings' : 'Show Screenings'}
-                  </button>
-              )}
-
-              {movie.showScreenings && (
-                  <div>
-                    <h3>Screenings:</h3>
-                    {Object.entries(movie.screenings).length === 0 ? (
-                        <p>No screenings available</p>
-                    ) : (
-                        <div className="screenings-container">
-                          {Object.entries(movie.screenings).map(([cinema, times]) => (
-                              <div className="screening-card" key={cinema}>
-                                <span className="screening-title">{cinema}</span>
-                                <span className="screening-times-container">
+                {movie.showScreenings && (
+                    <div>
+                      <h3>Screenings:</h3>
+                      {Object.entries(movie.screenings).length === 0 ? (
+                          <p>No screenings available</p>
+                      ) : (
+                          <div className="screenings-container">
+                            {Object.entries(movie.screenings).map(([cinema, times]) => (
+                                <div className="screening-card" key={cinema}>
+                                  <span className="screening-title">{cinema}</span>
+                                  <span className="screening-times-container">
                           {times.map((time, index) => (
                               <div className="ellipse" key={index}>
                                 {time}
                               </div>
                           ))}
                         </span>
-                              </div>
-                          ))}
-                        </div>
-                    )}
-                    <br/><br/>
-                  </div>
-              )}
-            </div>
-        ))}
+                                </div>
+                            ))}
+                          </div>
+                      )}
+                      <br/><br/>
+                    </div>
+                )}
+              </div>
+          ))}
+        </div>
+        <Footer/>
       </div>
-      <Footer/>
-    </div>
   );
 }
 
