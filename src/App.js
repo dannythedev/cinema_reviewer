@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.css'; // Import the CSS file
 import Footer from './Footer';
+import Carousel from './Carousel'; // Import the Carousel component
+
 // Import all logos statically
 import YesPlanetLogo from './logos/fRW7ZRr.png';
 import HOTCinemaLogo from './logos/eMeib2P.png';
@@ -15,7 +17,7 @@ import TomatometerCriticLogo from './logos/AGJ7mEy_critic.png';
 import TomatometerAudienceLogo from './logos/AGJ7mEy_audience.png';
 
 // A mapping of reviewer/cinema names to imported logo filenames
-const logos = {
+export const logos = {
   "Yes Planet": YesPlanetLogo,
   "Hot Cinema": HOTCinemaLogo,
   "Cinema City": CinemaCityLogo,
@@ -103,6 +105,8 @@ function App() {
         value={searchQuery}
         onChange={handleSearchChange} // Update search query on input change
       />
+
+      <Carousel movies={movies} />
 
       <div className="movies-container">
         {filteredMovies.map((movie, index) => (
