@@ -23,42 +23,57 @@
   object-fit: cover; /* Ensure the image covers the area */
   filter: brightness(0.7); /* Darken the image */
 }
-
 .carousel-overlay {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  bottom: 10px; /* Adjust bottom positioning */
+  left: 10px; /* Adjust left positioning */
   background: rgba(0, 0, 0, 0.7);
-  padding: 15px;
+  padding: 0.5rem; /* Smaller padding for fitting elements */
   border-radius: 10px;
-  width: 90%; /* Responsive width */
-  max-width: 300px; /* Limit the maximum width */
+  width: calc(90% - 20px); /* Responsive width */
+  max-width: calc(100% - 20px); /* Limit to image width */
+  min-height: 60px; /* Set a minimum height for visibility */
+  overflow: hidden; /* Prevent overflow */
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack elements vertically */
 }
 
 .carousel-title {
   color: #ffffff;
-  font-size: 1.8rem;
+  font-size: clamp(1rem, 1.5vw + 0.5rem, 2rem); /* Responsive title size */
   margin: 0;
+  white-space: normal; /* Allow wrapping */
+  overflow: hidden; /* Prevent overflow */
+  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  flex-grow: 1; /* Allow title to grow */
+  line-height: 1.2; /* Adjust line height for better spacing */
 }
 
 .carousel-rating,
 .carousel-duration,
 .carousel-genre {
   color: #ffffff;
-  font-size: 1rem;
+  font-size: clamp(0.8rem, 1.5vw + 0.2rem, 1rem);
+  margin-top: 0.2rem;
+  margin-bottom: -0.5%;
+}
+
+.carousel-rating {
+  color: #ff416c;
+  font-weight: bold;
 }
 
 .carousel-cinema-logos {
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
-  justify-content: left;
+  gap: 0.5rem; /* Consistent spacing between logos */
+  justify-content: flex-start; /* Align logos to the left */
+  margin-top: 10%;
 }
 
 .cinema-logo {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
+  width: clamp(30px, 8vw, 50px); /* Responsive logo size */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Ensure logos don't get distorted */
 }
 
 /* Dots for navigation */
@@ -66,16 +81,16 @@
   display: flex;
   justify-content: center;
   position: absolute;
-  bottom: 20px;
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10; /* Ensure dots are on top */
 }
 
 .carousel-dot {
-  height: 10px;
-  width: 10px;
-  margin: 0 5px;
+  height: clamp(6px, 1vw, 8px); /* Responsive dot size */
+  width: clamp(6px, 1vw, 8px);
+  margin: 0 5px; /* Gap between dots */
   border-radius: 50%;
   background-color: #bbb; /* Default color */
   cursor: pointer;
@@ -91,30 +106,14 @@
   .carousel-overlay {
     bottom: 5px; /* Further reduce bottom margin */
     left: 5px; /* Reduce left margin */
-    padding: 5px; /* Smaller padding for mobile */
-    font-size: 0.8rem; /* Decrease the font size further */
-    width: 80%; /* Make the width smaller for mobile */
-    max-width: none; /* Remove max-width for smaller screens */
+    padding: 0.3rem; /* Smaller padding for mobile */
+    width: calc(90% - 10px); /* Adjust for mobile width */
+    max-width: calc(100% - 10px); /* Remove max-width for smaller screens */
+    min-height: 50px; /* Maintain minimum height */
   }
 
   .carousel-title {
-    font-size: 1.2rem; /* Smaller title font size */
-  }
-
-  .carousel-rating,
-  .carousel-duration,
-  .carousel-genre {
-    font-size: 0.7rem; /* Smaller text size for details */
-  }
-
-  .carousel-cinema-logos {
-    gap: 5px; /* Decrease the gap between logos */
-    margin-top: 5px; /* Decrease top margin */
-  }
-
-  .cinema-logo {
-    width: 30px; /* Smaller logos for mobile */
-    height: 30px;
+    font-size: clamp(1rem, 2vw + 0.5rem, 1.5rem); /* Smaller title font size */
   }
 
   .carousel-dots {
@@ -122,7 +121,7 @@
   }
 
   .carousel-dot {
-    height: 8px; /* Smaller dots */
-    width: 8px;
+    height: clamp(6px, 1vw, 8px); /* Smaller dots */
+    width: clamp(6px, 1vw, 8px);
   }
 }

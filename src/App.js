@@ -46,6 +46,7 @@ const logoToKeyMapping = {
 function App() {
   const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentDate, setCurrentDate] = useState(''); // New state for the date
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -62,6 +63,9 @@ function App() {
           ...movie,
           showScreenings: false,
         }));
+        const date = data.Date; // Use 'Dates' key to extract the date
+        setCurrentDate(date); // Set the date state
+
 
         setMovies(moviesWithVisibility);
       } catch (error) {
@@ -115,8 +119,9 @@ function App() {
               onChange={handleSearchChange}
           />
         </div>
-
-        {!searchQuery && <Carousel movies={movies} />}
+        {!searchQuery && <Carousel movies={movies}/>}
+        <h1>Now Trending in Local Cinemas</h1>
+        <p className="current-date">Last Update: {currentDate}.</p> {/* Display the date below the search bar */}
 
         <div className="movies-container">
           {filteredMovies.map((movie, index) => (
