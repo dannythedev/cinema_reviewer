@@ -119,10 +119,11 @@ function App() {
               onChange={handleSearchChange}
           />
         </div>
-        {!searchQuery && <Carousel movies={movies}/>}
+        {!searchQuery && (<><Carousel movies={movies} />
         <h1>Now Trending in Local Cinemas</h1>
         <p className="current-date">Last Update: {currentDate}.</p> {/* Display the date below the search bar */}
-
+      </>
+    )}
         <div className="movies-container">
           {filteredMovies.map((movie, index) => (
               <div className="movie-card" key={index}>

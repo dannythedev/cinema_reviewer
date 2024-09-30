@@ -45,9 +45,7 @@ function Carousel({ movies }) {
               <img src={movie.image} alt={movie.title} className="carousel-image" />
               <div className="carousel-overlay">
                 <h2 className="carousel-title">{movie.title}</h2>
-                <p className="carousel-rating">Rating: {movie.total_rating}%</p>
-                <p className="carousel-duration"><b>Duration:</b> {movie.duration ? movie.duration : 'N/A'}</p>
-                <p className="carousel-genre"><b>Genre:</b> {Array.isArray(movie.genre) && movie.genre.length > 0 ? movie.genre.join(', ') : 'N/A'}</p>
+                <p className="carousel-rating">{movie.total_rating}%</p>
 
                 {/* Cinema logos */}
                 <div className="carousel-cinema-logos">
