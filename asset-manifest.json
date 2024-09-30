@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/cinema_reviewer/static/css/main.5d122c12.css",
-    "main.js": "/cinema_reviewer/static/js/main.b5bf706c.js",
+    "main.css": "/cinema_reviewer/static/css/main.6ede80cd.css",
+    "main.js": "/cinema_reviewer/static/js/main.716d40d6.js",
     "static/js/453.68bc0957.chunk.js": "/cinema_reviewer/static/js/453.68bc0957.chunk.js",
     "static/media/logo.png": "/cinema_reviewer/static/media/logo.cdfd2bf785657b86b5a5.png",
     "static/media/dHSZEvt.png": "/cinema_reviewer/static/media/dHSZEvt.637396a89699dc615125.png",
@@ -13,12 +13,12 @@
     "static/media/7Nt6BUb.png": "/cinema_reviewer/static/media/7Nt6BUb.b494d9c12cc10edc8940.png",
     "static/media/M63ZHXb.png": "/cinema_reviewer/static/media/M63ZHXb.b4908bc375fd541b9187.png",
     "index.html": "/cinema_reviewer/index.html",
-    "main.5d122c12.css.map": "/cinema_reviewer/static/css/main.5d122c12.css.map",
-    "main.b5bf706c.js.map": "/cinema_reviewer/static/js/main.b5bf706c.js.map",
+    "main.6ede80cd.css.map": "/cinema_reviewer/static/css/main.6ede80cd.css.map",
+    "main.716d40d6.js.map": "/cinema_reviewer/static/js/main.716d40d6.js.map",
     "453.68bc0957.chunk.js.map": "/cinema_reviewer/static/js/453.68bc0957.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5d122c12.css",
-    "static/js/main.b5bf706c.js"
+    "static/css/main.6ede80cd.css",
+    "static/js/main.716d40d6.js"
   ]
 }
